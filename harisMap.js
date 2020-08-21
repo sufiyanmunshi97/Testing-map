@@ -1,12 +1,22 @@
 import * as d3 from 'd3'
 import { formatType, handleErrors } from '../common/utils'
 
-import { Looker, VisualizationDefinition} from '../types/types'
+import {
+  Link,
+  Looker,
+  LookerChartUtils,
+  Row,
+  VisConfig,
+  VisualizationDefinition
+} from '../types/types'
+
 declare var looker: Looker
+declare var LookerCharts: LookerChartUtils
+
 interface MapVisualization extends VisualizationDefinition {
   svg?: any,
-  tooltip?: any
 }
+
 
 const vis:MapVisualization ={
  /**
