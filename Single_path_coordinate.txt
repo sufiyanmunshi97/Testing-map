@@ -1,0 +1,22 @@
+[
+ {"user.coordinate":{
+   "value":[-104.05,  48.99]
+   }
+ },
+   {"user.coordinate":{
+   "value":[-97.22, 48.98]
+   }
+ },
+   {"user.coordinate":{
+   "value":[-96.58, 45.94]
+   }
+ },
+   {"user.coordinate":{
+   "value":[-104.03, 45.94]
+   }
+ },
+   {"user.coordinate":{
+   "value":[-104.05, 48.99]
+   }
+ }
+]

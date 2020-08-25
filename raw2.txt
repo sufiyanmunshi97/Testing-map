@@ -1,0 +1,42 @@
+[
+ {"user.coordinate":{
+   "value":[-95.3698,  29.7604]
+   }
+ },
+   {"user.coordinate":{
+   "value":[-90.0667, 29.95]
+   }
+ },
+   {"user.coordinate":{
+   "value":[-88.0431, 30.6944]
+   }
+ },
+   {"user.coordinate":{
+   "value":[-81.1167, 32.0167]
+   }
+ },
+   {"user.coordinate":{
+   "value":[-79.9333, 32.783]
+   }
+ },
+   {"user.coordinate":{
+   "value":[-118.25, 34.05]
+   }
+ },
+   {"user.coordinate":{
+   "value":[-89.9711, 35.1174]
+   }
+ },
+   {"user.coordinate":{
+   "value":[-75.1667, 39.95]
+   }
+ },
+   {"user.coordinate":{
+   "value":[-73.7834, 40.636]
+   }
+ },
+   {"user.coordinate":{
+   "value":[-87.6847, 41.8369]
+   }
+ }
+]
