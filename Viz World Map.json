@@ -131,24 +131,33 @@ const visObject ={
               .y(function (d) { return projection (d.coordinate)[1]; })
  
    d3.queue()
-     .defer(d3.json,"https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
+     .defer(d3.json,"https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json")
      .await(ready);
    
    function ready(error, countries){
      
      svg.append("g")
         .selectAll("path")
-        .data(topojson.feature(countries, countries.objects.countries).features)
+        .data(topojson.feature(countries, countries.objects.states).features)
         .enter()
         .append("path")
         .attr( "d", geoPath )
         .attr("class","country");
 
      svg.selectAll("geojson")
+        .data(formattedData).enter()
+        .append("path")
+        .attr("stroke","black")
+        .attr("fill","white")
+        .attr('fill-opacity', 0.1)
+        .attr("stroke-width",4)
+        .attr("d",line(formattedData));
+     svg.selectAll("circle")
      		.data(formattedData).enter()
-     		.append("path")
-     		.attr("stroke","black")
-     		.attr("d",line(formattedData))
+     		.append("circle")
+     		.attr("cx", function(d) { return projection (d.coordinate)[0];}) 
+     		.attr("cy", function(d) { return projection (d.coordinate)[1];}) 
+     		.attr("r","3px")
      		.attr("fill","black");
      		
    }
