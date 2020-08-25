@@ -31,6 +31,10 @@ const visObject ={
               fill: #005DAA;
              
             }
+
+						.land {
+ 							 fill: #999;
+						}
             .groups text {
               font-size: 2em;
             }
@@ -42,6 +46,20 @@ const visObject ={
               top: 10px;
               left: 20px;
               
+            }
+						.geojson {
+              fill: none;
+              stroke: red;
+              stroke-width: 5;
+            }
+			
+						 .graticule {
+              fill: none;
+              stroke: #fff;
+              stroke-width: .5px;
+             }
+           	 .graticule :nth-child(2n) {
+             stroke-dasharray: 2,2;
             }
 
 				
@@ -103,17 +121,21 @@ const visObject ={
    
    formattedData = []
    data.forEach(function(d) {
-         formattedData.push
-           var dimension = queryResponse.fields.dimension_like
-           var measure = queryResponse.fields.measure_like[0]
+         formattedData.push({
+           coordinate: d["user.coordinate"]["value"]
+      });
          
        });
+    var line=d3.line()
+              .x(function (d) { return projection (d.coordinate)[0]; })
+              .y(function (d) { return projection (d.coordinate)[1]; })
+ 
    d3.queue()
      .defer(d3.json,"https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
      .await(ready);
    
    function ready(error, countries){
-     console.log(countries)
+     
      svg.append("g")
         .selectAll("path")
         .data(topojson.feature(countries, countries.objects.countries).features)
@@ -121,6 +143,14 @@ const visObject ={
         .append("path")
         .attr( "d", geoPath )
         .attr("class","country");
+
+     svg.selectAll("geojson")
+     		.data(formattedData).enter()
+     		.append("path")
+     		.attr("stroke","black")
+     		.attr("d",line(formattedData))
+     		.attr("fill","black");
+     		
    }
    doneRendering()
  }
