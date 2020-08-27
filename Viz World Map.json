@@ -1,5 +1,4 @@
 
-
 /**
  * Welcome to the Looker Visualization Builder! Please refer to the following resources 
  * to help you write your visualization:
@@ -97,7 +96,7 @@ const visObject ={
                    .append("g")
 
    var projection = d3.geoAlbersUsa()
-                      .scale(500)
+                      .scale(700)
                       .translate([width / 2, height / 2]);
  
    var path = d3.geoPath()
@@ -118,15 +117,44 @@ const visObject ={
  
    d3.queue()
      .defer(d3.json,"https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json")
-   	 .defer(d3.tsv,"https://gist.githubusercontent.com/mbostock/4090846/raw/07e73f3c2d21558489604a0bc434b3a5cf41a867/us-state-names.tsv")
+   	 .defer(d3.tsv,"https://raw.githubusercontent.com/sufiyanmunshi97/Testing-map/master/Us_state_name.tsv")
      .await(ready);
    
-   
+    var tooltip = d3.select("path")
+                    .append("div")
+                    .style("opacity", 0)
+                    .attr("class", "tooltip")
+                    .style("background-color", "white")
+                    .style("border", "solid")
+                    .style("border-width", "2px")
+                    .style("border-radius", "5px")
+                    .style("padding", "5px")
    
    function ready(error, states,tsv){
+     let mouseOver = function(d) {
+                        d3.selectAll(".states")
+                        .transition()
+                        .duration(2)
+                        .style("opacity", .1)
+                        d3.select(this)
+                        .transition()
+                        .duration(2)
+                        .style("opacity", 1)
+                        .style("stroke", "red")}
+     let mouseLeave = function(d) {
+                        d3.selectAll(".states")
+                        .transition()
+                        .duration(2)
+                        .style("opacity", .5)
+                        d3.select(this)
+                        .transition()
+                        .duration(2)
+                        .style("stroke", "red")
+                        tooltip.style("opacity", 0)
+                    }
      
      var names = {};
-    tsv.forEach(function(d,i){
+    	tsv.forEach(function(d,i){
       names[d.id] = d.name;});
      var data= topojson.feature(states, states.objects.states).features
     
@@ -139,10 +167,17 @@ const visObject ={
         .attr("class","states")
      		.attr("stroke","red")
      		.attr("fill","#808080")
+     		.attr("class", function(d){ return "states" } )
+        .on("mouseover", mouseOver )
+        .on("mouseleave", mouseLeave )
+                
      		.attr("name", function(d){ return d.properties.name;})
      		.call(d3.zoom().on("zoom", function () {
       					 svg.attr("transform", d3.event.transform)}))
  										.append("g");
+     		
+         
+               
 
      	 g.append("g")
        .attr("class", "states-names")
@@ -163,7 +198,7 @@ const visObject ={
        .attr('fill', 'white')
      	 .attr("font-size", "0.5em");
      
-      g.selectAll("geojson")
+     g.selectAll("geojson")
        .data(formattedData).enter()
        .append("path")
        .attr("stroke","blue")
@@ -171,6 +206,12 @@ const visObject ={
        .attr('fill-opacity', 0.1)
        .attr("stroke-width",0.5)
        .attr("d",line(formattedData));
+
+     
+     
+     
+     
+      
 
   
     
